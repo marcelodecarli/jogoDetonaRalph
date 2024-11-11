@@ -16,7 +16,7 @@ const state = {
     values: {
         hitPosition: 0,
         result: 0,
-        currentTime: 5,
+        currentTime: 30,
         lives: 3,
         lifeCount: 0,
         results: [], // Array para armazenar os resultados de cada vida
@@ -59,7 +59,7 @@ function countDown() {
 
         if (state.values.lives > 0) {
             // Reinicia o tempo para a próxima vida
-            state.values.currentTime = 5;
+            state.values.currentTime = 30;
             state.actions.countDownTimerId = setInterval(countDown, 1000);
             state.actions.timerId = setInterval(randomSquare, 500);
 
@@ -117,21 +117,14 @@ function resetGame() {
     state.values.results = [];
     state.values.game = 1;
     state.values.result = 0;
-    state.values.currentTime = 5;
+    state.values.currentTime = 30;
 
     state.view.livesCounter.textContent = `x${state.values.lives}`;
     state.view.score.textContent = state.values.result;
 
-    // Limpa os resultados das partidas anteriores
-    // state.view.resultElements.forEach(resultElement => {
-    //     resultElement.textContent = `Partida ${state.values.game}: ${state.values.result}`;
-    // });
-
-
     state.view.resultElements.forEach((resultElement, index) => {
         resultElement.textContent = `Partida ${index + 1}: ${state.values.result}`;
     });
-    
 }
 
 // Função para iniciar o jogo
@@ -139,14 +132,10 @@ function startGame() {
     state.view.startButton.disabled = true; // Desabilita o botão "Start" após o início do jogo
     state.actions.countDownTimerId = setInterval(countDown, 1000);
     state.actions.timerId = setInterval(randomSquare, 500);
-
 }
-
 
 state.view.stopGame.addEventListener("click", ()=> {
     window.location.reload(true);
-    
-
 })
 
 // Adiciona evento de clique para o botão "Start Game"
